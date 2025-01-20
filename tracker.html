@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #4a90e2;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    form input,
+    form select,
+    form button {
+      flex: 1 1 calc(50% - 20px);
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.3s ease-in-out;
+    }
+
+    form input:focus,
+    form select:focus {
+      border-color: #4a90e2;
+      box-shadow: 0 0 8px rgba(65, 105, 225, 0.3);
+    }
+
+    form button {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    form button:hover {
+      background-color: #c0392b;
+      transform: scale(1.05);
+    }
+
+    .expense-list {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .expense-list th,
+    .expense-list td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .expense-list th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .expense-list tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .expense-actions button {
+      margin: 0 5px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .expense-actions .edit-btn {
+      background-color: #28a745;
+    }
+
+    .expense-actions .delete-btn {
+      background-color: #dc3545;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 30px;
+    }
+
+    /* Loader Styling */
+    .loader-4 {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 112px;
+      height: 112px;
+      display: none;
+    }
+
+    .loader-4 .box1,
+    .loader-4 .box2,
+    .loader-4 .box3 {
+      border: 10px solid #cecece;
+      border-radius: 56px;
+      box-sizing: border-box;
+      position: absolute;
+      display: block;
+    }
+
+    .loader-4 .box1 {
+      width: 112px;
+      height: 48px;
+      margin-top: 64px;
+      margin-left: 0px;
+      animation: abox1 2.4s 0.6s forwards ease-in-out infinite;
+    }
+
+    .loader-4 .box2 {
+      width: 48px;
+      height: 48px;
+      margin-top: 0px;
+      margin-left: 0px;
+      animation: abox2 2.4s 0.6s forwards ease-in-out infinite;
+    }
+
+    .loader-4 .box3 {
+      width: 48px;
+      height: 48px;
+      margin-top: 0px;
+      margin-left: 64px;
+      animation: abox3 2.4s 0.6s forwards ease-in-out infinite;
+    }
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(45deg, #ff0000, #0000ff, #00ff00, #ff00ff);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite; /* Animation */
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+    @keyframes abox1 {
+      0% {
+        width: 112px;
+        height: 48px;
+        margin-top: 64px;
+        margin-left: 0px;
+      }
+      100% {
+        width: 48px;
+        height: 48px;
+        margin-top: 0px;
+        margin-left: 0px;
+      }
+    }
+
+    @keyframes abox2 {
+      0% {
+        width: 48px;
+        height: 48px;
+        margin-top: 0px;
+        margin-left: 0px;
+      }
+      100% {
+        width: 48px;
+        height: 48px;
+        margin-top: 0px;
+        margin-left: 64px;
+      }
+    }
+
+    @keyframes abox3 {
+      0% {
+        width: 48px;
+        height: 48px;
+        margin-top: 0px;
+        margin-left: 64px;
+      }
+      100% {
+        width: 112px;
+        height: 48px;
+        margin-top: 64px;
+        margin-left: 0px;
+      }
+    }
+header {
+  background: linear-gradient(to right, #ff0000, #0000ff); /* Red to Blue gradient */
+  color: white;
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #8a2be2, #7a00b4); /* Violet gradient */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+  </style>
+</head>
+<body>
+
+  <header>Expense Tracker</header>
+  <div class="container">
+    <form id="expense-form">
+      <input type="text" id="expense-name" placeholder="Expense Name" required>
+      <input type="number" id="expense-amount" placeholder="Expense Amount ($)" required>
+      <input type="date" id="expense-date" required>
+      <select id="expense-category" required>
+        <option value="" disabled selected>Category</option>
+        <option value="Food">Food</option>
+        <option value="Transport">Transport</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Other">Other</option>
+      </select>
+      <button type="submit">Add Expense</button>
+    </form>
+
+    <table class="expense-list" id="expense-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Category</th>
+          <th class="action-column">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="expense-body">
+        <!-- Expenses will be dynamically added here -->
+      </tbody>
+    </table>
+
+    <center>
+      <button id="download-image" style="margin-top: 20px; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: 
+
+pointer;">Download Expense List</button>
+    </center>
+  </div>
+
+  <div class="loader-4" id="loader">
+    <div class="box1"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+  </div>
+
+<footer style="position: fixed; left: 0; bottom: 0; width: 100%; text-align: center; font-family: Arial, sans-serif; font-size: 14px; background: linear-gradient(to right, 
+
+#ff4b5c, #007bff); border-top: 2px solid #333; padding: 10px 0; color: #fff;">
+    <p style="margin: 0;">&copy; 2025 Godfrey T R | Expense Tracker | Contact: +91 93444 62238</p>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
+    const expenseForm = document.getElementById("expense-form");
+    const expenseTable = document.getElementById("expense-body");
+    const downloadButton = document.getElementById("download-image");
+    const loader = document.getElementById("loader");
+
+    // Add expense
+    expenseForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("expense-name").value;
+      const amount = document.getElementById("expense-amount").value;
+      const date = document.getElementById("expense-date").value;
+      const category = document.getElementById("expense-category").value;
+
+      const row = document.createElement("tr");
+      row.innerHTML = ` 
+        <td>${name}</td>
+        <td>$${parseFloat(amount).toFixed(2)}</td>
+        <td>${date}</td>
+        <td>${category}</td>
+        <td class="expense-actions">
+          <button class="edit-btn" onclick="editExpense(this)">Edit</button>
+          <button class="delete-btn" onclick="deleteExpense(this)">Delete</button>
+        </td>
+      `;
+      expenseTable.appendChild(row);
+      expenseForm.reset();
+    });
+
+    // Edit expense
+    function editExpense(button) {
+      const row = button.closest("tr");
+      const name = row.children[0].textContent;
+      const amount = row.children[1].textContent.slice(1);
+      const date = row.children[2].textContent;
+      const category = row.children[3].textContent;
+
+      document.getElementById("expense-name").value = name;
+      document.getElementById("expense-amount").value = amount;
+      document.getElementById("expense-date").value = date;
+      document.getElementById("expense-category").value = category;
+
+      deleteExpense(button);
+    }
+
+    // Delete expense
+    function deleteExpense(button) {
+      button.closest("tr").remove();
+    }
+
+    // Download expense list as image without actions column
+    downloadButton.addEventListener("click", () => {
+      loader.style.display = "block"; // Show loader
+      setTimeout(() => {
+        const tableElement = document.querySelector(".expense-list");
+        const actionColumn = document.querySelectorAll(".action-column, .expense-actions");
+
+        // Hide the action column
+        actionColumn.forEach((col) => col.style.display = "none");
+
+        // Capture and download the table as an image
+        html2canvas(tableElement).then((canvas) => {
+          const link = document.createElement("a");
+          link.download = "expense-list.png";
+          link.href = canvas.toDataURL();
+          link.click();
+
+          // Restore the action column
+          actionColumn.forEach((col) => col.style.display = "");
+          loader.style.display = "none"; // Hide loader after the download
+        });
+      }, 5000); // Wait for 3 seconds before capturing
+    });
+  </script>
+</body>
+</html>
